@@ -1,13 +1,11 @@
-function calcularProduto(valor, quantidade){
-
+function calcularProduto(valor, quantidade) {
     return valor * quantidade;
-    
 }
 
-function calcularAdicional(valor){
+function calcularAdicional(valor) {
     let adicional = 0;
 
-    if (valor < 3000) {
+    if (valor <= 3000) {
         adicional = 0;
     } else if (valor <= 8000) {
         adicional = 0.05;
@@ -18,11 +16,10 @@ function calcularAdicional(valor){
     } else {
         adicional = 0.20;
     }
-
-    // Retorna o valor numérico do adicional
+    
     return valor * adicional;
 }
 
-export{
-    calcularProduto, calcularAdicional
+export {
+    calcularProduto,calcularAdicional
 };
