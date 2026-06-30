@@ -89,12 +89,12 @@ button{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-#listaVeiculos h3{
+#listaProdutos h3{
     color: #0066ff;
     margin-bottom: 10px;
 }
 
-#listaVeiculos p{
+#listaProdutos p{
     margin: 8px 0;
     color: #444;
 }
