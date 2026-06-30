@@ -1,22 +1,26 @@
 import { calcularProduto, calcularAdicional } from "./script_calculos.js";
 
-function pegarDescricaoProduto(){
+let produtos = [];
+
+function pegarDescricaoProduto() {
     let descricao = document.querySelector("#descricao").value;
 
     let valor = Number(
         document.querySelector("#valor").value
     );
 
-    let  quantidade = Number(
+    let quantidade = Number(
         document.querySelector("#quantidade").value
     );
 
-    let adicional = calcularAdicional(valor);
+    let valorTotal = calcularProduto(valor, quantidade);
 
+    let adicional = calcularAdicional(valorTotal);
 
-    let valorTotal = calcularProduto((valor + adicional), quantidade);
+    valorTotal = valorTotal + adicional;
 
     let produto = {
+
         descricao: descricao,
         valor: valor,
         quantidade: quantidade,
@@ -24,35 +28,42 @@ function pegarDescricaoProduto(){
         valorTotal: valorTotal
 
     };
-
     return produto;
 }
 
-function adicionarProduto(produto){
+function adicionarProduto(produtos) {
     let lista = document.querySelector("#listaProdutos");
+    lista.innerHTML = "";
 
-    let item = document.createElement("li");
+    for (let produto of produtos) {
 
-    item.innerHTML = `
-    Descrição: ${produto.descricao}<br>
-    Valor: R$ ${produto.valor.toFixed(2)} reais<br>
-    Quantidade: ${produto.quantidade} unidades<br>
-    Adicional: ${produto.adicional.toFixed(2)}<br>
-    Valor Total: R$ ${produto.valorTotal.toFixed(2)} reais
-    `;
+        let item = document.createElement("li");
 
-    lista.appendChild(item);
+        item.innerHTML = `
+            Descrição: ${produto.descricao}<br>
+            Valor Unitário: R$ ${produto.valor.toFixed(2)}<br>
+            Quantidade: ${produto.quantidade}<br>
+            Valor Total: R$ ${produto.valorTotal.toFixed(2)}<br>
+            Valor Adicional: ${
+                produto.adicional > 0
+                ? "R$ " + produto.adicional.toFixed(2)
+                : "Isento"
+            }
+            <hr>
+
+        `;
+
+        lista.appendChild(item);
+    }
 }
 
 let formulario = document.querySelector("#formProduto");
 
-formulario.addEventListener("submit", function(event){
-
+formulario.addEventListener("submit", function (event) {
+    
     event.preventDefault();
-
     let produto = pegarDescricaoProduto();
-
-    adicionarProduto(produto);
-
+    produtos.push(produto);
+    adicionarProduto(produtos);
     formulario.reset();
 });
